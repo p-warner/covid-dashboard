@@ -1,0 +1,976 @@
+{{ attach_library('penn_college/slick') }}
+{{ attach_library('penn_college/slick-4') }}
+{#
+INTRO
+#}
+<div id="section_intro" class="container-fluid mx-0 py-5 d-print-none" style="background-image:radial-gradient(rgba(30, 75, 150,.8) 50%, rgba(10, 25, 50,.8) 100%), url('https://www.pct.edu/sites/default/files/styles/black_white/public/19-05/17_090817_50105_1.jpg'); background-size: cover; background-position: center;">
+	<div class="container my-5 clearfix">
+		<div class="card-deck justify-content-center">
+			<div class="card rounded-0 text-card text-left p-3 bg-white border-0 paragraph paragraph--type--card-text translucent-blue-green-stitch mx-auto">
+				<div class="card-body">
+					<h5 class="card-title mt-0 pt-0 mb-5 text-uppercase">Cost Estimator</h5>
+					<h4 class="card-title d-flex text-dark"></h4>
+					<div class="card-text smaller">
+						<p class="large text-align-center">
+							<em>The jump start you'll get on your career as a Penn College grad will likely be one of the best investments you'll ever make. To get there, you'll need to plan for your educational expenses. Use this tool to estimate your cost of attendance for your first academic year.</em>
+						</p>
+					</div>
+				</div>
+				<div class="card-footer border-0 bg-transparent"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{#
+MAJOR?
+#}
+<div id="section_major" class="container-fluid mx-0 px-0 d-print-none" data-section-first-year-cost="">
+	<div class="clearfix">
+		<div class="container-fluid alert-primary light-blue-background-follow-your-path text-dark-blue py-5">
+			<div class="container paragraph text-center rel paragraph--type--card-deck paragraph-where-our-ideas-take-flight">
+				<h5 class="card-title text-uppercase">Major</h5>
+				<div class="card-text">
+					<p class="lead font-weight-bold">Start by selecting your academic program.<p>
+					<p>Each program has unique expenses other than tuition: books, tools, etc.</p>
+				</div>
+				
+				{# Major can come from slate... #}
+				{% if major %}
+					<div id="major" class="d-none">{{ major }}</div>
+				{% endif %}
+
+				<div id="gui_select_major"></div>
+
+				<div class="card-deck justify-content-center mt-5"></div>
+				
+				{# MOMENTUM INCENTIVE MESSAGE #}
+				<div id="momentum-incentive-message">
+					<div class="d-flex align-items-center w-75 mx-auto row border-top border-bottom border-dark">
+						<div class="col-12 col-md-2 text-center"><i class="fas fa-snowflakes fa-3x pl-3 pt-3"></i></div>
+						<div class="cl-12 col-md-10 py-3"><p class="lead text-left p-o m-0">This bachelor degree program is eligible for the <a href="https://www.pct.edu/admissions/financial-aid/momentum" target="_blank">Momentum Incentive Program</a>, which means your first-year tuition rate could freeze for your remaining three years.</p></div>
+					</div>
+				</div>
+
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+{#
+PA RESIDENT?
+#}
+<div id="section_residency_choose" class="container-fluid mx-0 px-0 d-print-none">
+	<div class="clearfix">
+		<div class="container-fluid bg-middle-left-circles text-dark-blue py-5">
+			<div class="container paragraph text-center rel paragraph--type--card-deck paragraph-where-our-ideas-take-flight">				
+				{# Slate state/region... #}
+				{% if state %}
+					<div id="state" class="d-none">{{ state }}</div>
+				{% endif %}
+
+				<div class="card-deck justify-content-center mt-5">
+					{# Wide Card #}
+					<div class="row card-body m-0 p-0 align-items-stretch h-100 flex-row-reverse">
+						<div class="col-md-6 embed-responsive embed-responsive-16by9 border-0 bg-dark">
+							
+							<div class="embed-responsive-item slantything">
+								<div class="h-100 d-flex flex-column justify-content-center">
+									<i class="fad fa-home fa-5x text-danger"></i>
+									<div class="h-25">
+										<p class="resident-in-state-message d-none px-5 pt-3 text-white text-uppercase">The in-state tuition rate is $<span class="per_tuition">0</span> per credit</p>
+										<p class="resident-out-of-state-message d-none px-5 pt-3 text-white text-uppercase">The out-of-state tuition rate is $<span class="per_tuition">0</span> per credit</p>
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						<div class="col-md-6 bg-white p-5 text-left text-content align-content-center">
+							<h5 class="card-title text-uppercase">Residency</h5>
+							<h4 class="card-title">Are you a resident of Pennsylvania?</h4>
+							
+							<div class="card-text smaller">
+								<div class="clearfix text-formatted field field--name-field-body-copy field--type-text-long field--label-hidden field__item">
+									<div id="gui_select_recidency">
+										<p class="mt-3">
+											<a class="btn btn-outline-corner" data-form-update="radio;residency_radio;587">Yes</a>
+											<a class="btn btn-outline-corner" data-form-update="radio;residency_radio;839">No</a>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{# 
+INTERNATIONAL?
+#}
+<div id="section_international_choose" class="container-fluid mx-0 px-0 d-print-none">
+	<div class="clearfix">
+		<div class="container-fluid bg-middle-left-circles text-dark-blue py-5">
+			<div class="container paragraph text-center rel paragraph--type--card-deck paragraph-where-our-ideas-take-flight">
+				<div class="card-deck justify-content-center mt-5">					
+					{# Wide Card #}
+					<div class="row card-body m-0 p-0 align-items-stretch h-100 flex-row-reverse">
+						<div class="col-md-6 embed-responsive embed-responsive-16by9 border-0 bg-dark">							
+							<div class="embed-responsive-item">
+								<div class="h-100 d-flex flex-column justify-content-center">
+									<i class="fad fa-globe-europe fa-5x text-danger"></i>
+									<div class="h-25">
+										<p class="international-message d-none px-5 pt-3 text-white text-uppercase">There is a $500 International Student Matriculation Fee</p>
+										<p class="domestic-message d-none px-5 pt-3 text-white text-uppercase">OK. Got it!</p>
+									</div>
+								</div>
+							</div>	
+						</div>
+						<div class="col-md-6 bg-white p-5 text-left text-content align-content-center">
+							<h5 class="card-title text-uppercase">International Details</h5>
+							<h4 class="card-title">Are you an international student planning to study on a student visa?</h4>
+							<div class="card-text smaller">
+								<div class="clearfix text-formatted">
+									<p class="mt-3">
+										<a class="btn btn-outline-corner" data-form-update="radio;international_radio;500">Yes</a>
+										<a class="btn btn-outline-corner" data-form-update="radio;international_radio;0">No</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{#
+HOUSING, ON OR OFF?
+#}
+<div id="section_housing_choose" class="container-fluid mx-0 px-0 d-print-none">
+	<div class="clearfix">
+		<div class="container-fluid bg-light-gray bg-halftone-bottom-right py-5">
+			<div class="container paragraph text-center rel paragraph--type--card-deck paragraph-where-our-ideas-take-flight">
+				{#
+				<h5 class="card-title text-uppercase">Housing</h5>
+				<h2 class="mb-3">Do you plan to live on-campus?</h2>
+				<div class="card-text lead">
+					<p>Do you plan to live on-campus?</p>
+				</div>
+				#}
+				<div class="card-deck justify-content-center mt-5">
+					{# Wide Card #}
+					<div class="row card-body m-0 p-0 align-items-stretch h-100 flex-row-reverse">
+						<div class="col-md-6 embed-responsive embed-responsive-16by9 border-0 bg-dark">		
+							<div class="embed-responsive-item">
+								<div class="h-100 d-flex flex-column justify-content-center">
+									<i class="fad fa-building fa-5x text-danger"></i>
+									<div class="h-25">
+										<p class="housing-on-campus-message d-none px-5 pt-3 text-white text-uppercase">You're gonna love it!</p>
+										<p class="housing-off-campus-message d-none px-5 pt-3 text-white text-uppercase"><a class="text-white" target="_blank" href="/student-life/off-campus-living-commuter-services">Explore off-campus living and commuter services</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 bg-white p-5 text-left text-content align-content-center">
+							<h5 class="card-title text-uppercase">Housing</h5>
+							<h4 class="card-title">Do you plan to live on-campus?</h4>
+							<div class="card-text smaller">
+								<p class="mt-3">
+									<a class="btn btn-outline-corner" data-form-update="radio;living_radio;0">Yes</a>
+									<a class="btn btn-outline-corner" data-form-update="radio;living_radio;1">No</a>
+								</p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{#
+HOUSING, ON CAMPUS, CHOOSE ROOM
+#}
+<div id="section_housing_on_choose" class="container-fluid mx-0 px-0 d-print-none">
+	<div class="clearfix">
+		<div class="container-fluid text-light dark-blue-background-middle-right-real-world py-5">
+			<div class="container paragraph text-center rel paragraph--type--card-deck paragraph-where-our-ideas-take-flight">
+				<h5 class="card-title text-uppercase">On-Campus Housing Details</h5>
+				<div class="card-text">
+					<p><span class="font-weight-bold lead">What's your housing preference?</span></p>
+					<p>Rose Street Commons six-hall facility offers new, first-year students various living arrangements, including apartment-style units and traditional-style residential units.
+					<a href="/campus-life/campus-housing/rose-street-commons" target="_blank">Learn More About Rose Street Commons</a></p>
+				</div>
+				<div class="justify-content-center mt-5 slick-2">
+					{# Option 1 #}
+					{# _self.housing_card(4, 1, 2678, 960, 'housing_on_select', '/files/imported/campuslife/campushousing/images/rosestreet/CDJ4Person1BedroomISO.jpg') #}
+					
+					{{ _self.housing_card(2, 1, 3392, 960, 'housing_on_select', '/files/imported/campuslife/campushousing/images/dauphinhall/DauphinHallSuiteISO.jpg', "Double Room in Dauphin Hall Suite") }}
+					{{ _self.housing_card(1, 1, 3556, 960, 'housing_on_select', '/files/imported/campuslife/campushousing/images/dauphinhall/DauphinHallSuiteISO.jpg', "Single Room in Dauphin Hall Suite") }}
+
+					{{ _self.housing_card(6, 3, 3012, 960, 'housing_on_select', '/files/imported/campuslife/campushousing/images/rosestreet/Lancaster6Person3BedroomISO.jpg', "Apartment style") }}
+					{{ _self.housing_card(4, 2, 3392, 960, 'housing_on_select', '/files/imported/campuslife/campushousing/images/rosestreet/LancasterYork4Person2BedroomISO.jpg', "Apartment style") }}
+
+					{{ _self.housing_card(4, 2, 3392, 960, 'housing_on_select', '/sites/default/files/inline-images/Juniata%204%20Person%20-%202%20Bedroom.png', "Apartment style") }}
+					{{ _self.housing_card(2, 1, 3556, 960, 'housing_on_select', 'https://www.pct.edu/sites/default/files/inline-images/CDJ2-1.jpg', "Apartment style") }}
+					{{ _self.housing_card(2, 1, 3012, 960, 'housing_on_select', '/sites/default/files/inline-images/Juniata%202%20Person%20-%20Efficiency.png', "Two person efficiency") }}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{#
+MEALS, ON CAMPUS, CHOOSE PLAN
+#}
+<div id="section_housing_on_meal_choose" class="container-fluid mx-0 px-0 d-print-none">
+	<div class="clearfix">
+		<div class="container-fluid transparent-background-middle-left-green-stitches py-5">
+			<div class="container paragraph text-center rel paragraph--type--card-deck paragraph-where-our-ideas-take-flight">
+				<h5 class="card-title text-uppercase">On-Campus Dining Details</h5>
+				<div class="card-text lead">
+					<p>Which dining plan suits you best?</p>
+				</div>
+				<div class="justify-content-center mt-5 ow slick-2">
+					{# Option 1 #}
+					{{ _self.meal_plan_card(14, 2110, 300, 'meal_housing_on_radio') }}
+
+					{# Option 2 #}
+					{{ _self.meal_plan_card(19, 2554, 300, 'meal_housing_on_radio') }}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{#
+HOUSING, EIGHT WEEK ONLY
+#}
+<div id="section_housing_on_eight_week" class="container-fluid mx-0 px-0 d-print-none">
+	<div class="clearfix">
+		<div class="container-fluid bg-middle-left-circles text-dark-blue py-5">
+			<div class="container paragraph text-center rel paragraph--type--card-deck paragraph-where-our-ideas-take-flight">
+				<h5 class="card-title text-uppercase">Housing Details</h5>
+				<div class="card-text">
+					<p class="lead">Eight-week housing</p>
+					<p>Since your major is built around the alternating eight-week classroom and eight-week co-op sessions, so is your on-campus housing. Your housing rate is discounted to $1,375 per semester plus $120/week summer housing.</p>
+				</div>
+				<div class="card-deck justify-content-center mt-5 ow"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{#
+MEALS, EIGHT WEEK ONLY, CHOOSE PLAN
+#}
+<div id="section_housing_on_eight_week_meal_choose" class="container-fluid mx-0 px-0 d-print-none">
+	<div class="clearfix">
+		<div class="container-fluid transparent-background-middle-left-green-stitches py-5">
+			<div class="container paragraph text-center rel paragraph--type--card-deck paragraph-where-our-ideas-take-flight">
+				<h5 class="card-title text-uppercase">On-Campus 8 Week Dining Details</h5>
+				<div class="card-text lead">
+					<p>Which dining plan suits you best?</p>
+					<p>Learn more about <a href="/campus-life/dining/dining-plans" target="_blank">dining plans</a>.</p>
+				</div>
+				<div class="justify-content-center mt-5 slick-2">
+					{# Option 1 #}
+					{{ _self.meal_plan_card(10, 943, 150, 'meal_housing_on_eight_week_radio', 8) }}
+
+					{# Option 2 #}
+					{{ _self.meal_plan_card(14, 1055, 150, 'meal_housing_on_eight_week_radio', 8) }}
+					
+					{# Option 3 #}
+					{{ _self.meal_plan_card(19, 1277, 150, 'meal_housing_on_eight_week_radio', 8) }}
+					
+					{# Fake card to push 3rd over #}
+					{#
+					<div class="card rounded-0 d-none d-md-block d-lg-block text-card p-3 bg-transparent border-0"></div>
+					#}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{#
+DINING, OFF CAMPUS
+#}
+<div id="section_housing_off_meal_choose" class="container-fluid mx-0 px-0 d-print-none">
+	<div class="clearfix">
+		<div class="container-fluid transparent-background-middle-left-green-stitches py-5">
+			<div class="container paragraph text-center rel paragraph--type--card-deck paragraph-where-our-ideas-take-flight">
+				<h5 class="card-title text-uppercase">Off-Campus Housing Dining Details</h5>
+				<div class="card-text">
+					<p class="lead">Which dining plan suits you best?</p>
+					<p>Learn more about <a href="/campus-life/dining/dining-plans" target="_blank">dining plans</a>.</p>
+				</div>
+				<div class="justify-content-center mt-5 slick-2">
+					
+					{# Option 1, No board plan #}
+					{{ _self.meal_plan_card(0, 0, 0, 'meal_housing_off_radio') }}
+
+					{# Option 2 #}
+					{{ _self.meal_plan_card(5, 1138, 300, 'meal_housing_off_radio') }}
+
+					{# Option 3 #}
+					{{ _self.meal_plan_card(10, 1886, 300, 'meal_housing_off_radio') }}
+										
+					{# Option 4, $2,079 BOARD PLAN (14 MEALS PER WEEK / $300 FLEX) PER SEMESTER #}
+					{{ _self.meal_plan_card(14, 2110, 300, 'meal_housing_off_radio') }}
+
+					{# Option 5 #}
+					{{ _self.meal_plan_card(19, 2554, 300, 'meal_housing_off_radio') }}
+
+					{# Fake card to push over #}
+					{#
+					<div class="card rounded-0 d-none d-md-block d-lg-block text-card p-3 bg-transparent border-0"></div>
+					#}
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{#
+AID, from controller or added by visitor
+#}
+{% if aid|length > 0 %}
+<div id="section_aid" class="container-fluid mx-0 px-0 d-print-none">
+	<div class="clearfix">
+		<div class="container-fluid bg-middle-left-circles text-dark-blue py-5">
+			<div class="container paragraph text-center rel paragraph--type--card-deck paragraph-where-our-ideas-take-flight">
+				<h5 class="card-title text-uppercase">Anticipated Financial Aid</h5>
+				<div class="card-deck justify-content-center mt-5 row">
+					
+					{# Option 1, No board plan #}
+					{{ _self.aid_card(aid) }}
+
+					{# TODO: Option 2, Add your own aids #}
+					{# 
+					<div class="card rounded-0 text-card text-left p-3 bg-white border-0 light-gray-background-top-border-dark-blue">
+						<div class="card-body">
+							<h4 class="card-title d-flex text-dark"><i class="fal fa-hand-holding-usd text-danger mr-3"></i> Aid</h4>
+							<div class="card-text smaller text-secondary row">
+								<div class="w-100 clearfix text-formatted">
+									<p>User defined aid.</p>
+								</div>
+
+								<div class="list-group w-100">
+
+									<div class="list-group-item form-row rounded-0">
+										
+										<div class="col-7">
+											<span class="input-group">
+												<!--span class="field-prefix input-group-prepend"><div class="input-group-text">$</div></span-->
+												<input type="text" name="user_defined_aid_name" value=""  class="form-control">
+												<!--span class="field-suffix input-group-append"><div class="input-group-text">.00</div></span-->
+											</span>
+										</div>
+										
+										<div class="col-5 col-md-5">
+											<span class="input-group">
+												<span class="field-prefix input-group-prepend"><div class="input-group-text">$</div></span>
+												<input type="text" name="user_defined_aid_value" value="" class="form-control">
+												<!--span class="field-suffix input-group-append"><div class="input-group-text">.00</div></span-->
+											</span>
+										</div>
+
+									</div><!-- /.list-group-item -->
+
+								</div>
+
+							</div>
+						</div>
+						<div class="card-footer border-0 bg-transparent d-flex align-items-center justify-content-between">
+							<span class="text-uppercase">Total</span>
+							<span class="smaller text-dark sb p-2">-${{ total|number_format(0, '.', ',') }}/year</span>
+						</div>
+					</div>
+					#}
+				
+					{% if aid|length == 0 %}
+						{# Fake card to push over #}
+						<div class="card rounded-0 d-none d-md-block d-lg-block text-card p-3 bg-transparent border-0"></div>
+					{% endif %}
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+
+{#
+RESULTS
+#}
+<div id="section_results" class="container-fluid mx-0 px-0">
+	<div class="clearfix">
+		<div class="container-fluid bg-light-gray bg-halftone-bottom-right text-dark-blue py-5">
+			<div class="container paragraph text-center rel paragraph--type--card-deck paragraph-where-our-ideas-take-flight">
+				<div class="card-deck justify-content-center mt-5 ow">
+					{% if aid|length > 0 %}
+						
+						{% set total = 0 %}
+						{% for item in aid %}
+							{% if item.status == 'Active' %}
+								{% if item.fall_amount|number_format > 0 %}
+									{% set total = total + item.fall_amount %}
+								{% endif %}
+								{% if item.spring_amount|number_format > 0 %}
+									{% set total = total + item.spring_amount %}
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+
+						{# Wide Card #}
+						<div class="row card-body m-0 p-0 align-items-stretch h-100 flex-row-reverse">
+							<div class="col-md-6 embed-responsive embed-responsive-4by3 border-0 bg-dark">
+								
+								<div class="embed-responsive-item slantything">
+									<div class="h-100 d-flex flex-column justify-content-center">
+										<p class="mb-0 display-3 text-danger font-weight-bold">$<span id="total-total-difference"><span class="count"></span></span></p>
+										<p class="px-5 pt-3 text-white">TOTAL FIRST-YEAR COST <span class="h-comp-cred">AFTER ANTICIPATED AID</span></p>
+										<p class="px-5 pt-3 text-white"><a class="text-white" href="#section_details">View your cost details</a></p>
+									</div>
+								</div>
+							
+							</div>
+							<div class="col-md-6 bg-white p-5 text-left text-content align-content-center">
+								<h5 class="card-title text-uppercase">Total</h5>
+								<h4 class="card-title">First-year Cost for <span class="selected-program"></span></h4>
+								<div class="card-text smaller">
+            			<div class="clearfix text-formatted">
+										<p>Here are the first-year academic costs of your education. <span class="h-comp-cred">{% if not aid|length %}This cost does not reflect any financial aid you may receive.{% endif %}</span></p>
+										<div class="list-group">
+											<div class="list-group-item d-flex align-items-center justify-content-between rounded-0 border-left-0 border-right-0 px-1">
+												<small>Tuition &amp; Fees</small>
+												<span>+ $<span class="count" id="total-tuition">0</span></span>
+											</div>
+											<div class="list-group-item d-flex align-items-center justify-content-between rounded-0 border-left-0 border-right-0 px-1">
+												<small>Books</small>
+												<span>+ $<span class="count" id="total-books">0</span></span>
+											</div>
+											<div class="list-group-item d-flex align-items-center justify-content-between rounded-0 border-left-0 border-right-0 px-1">
+												<small>Tools &amp; Uniforms <i class="fal fa-info-circle tools-low d-none" data-toggle="tooltip" data-placement="top" title="Additional tools may be needed in later semesters."></i><i class="fal fa-info-circle tools-high" data-toggle="tooltip" data-placement="top" title="This accounts for most of the tools you will need throughout your entire program."></i></small>
+												<span>+ $<span class="count" id="total-tools">0</span></span>
+											</div>
+											<div class="list-group-item d-flex align-items-center justify-content-between rounded-0 border-left-0 border-right-0 px-1">
+												<small>Housing &amp; Dining</small>
+												<span>+ $<span><span class="count living-total">0</span></span>
+											</div>
+											<div class="list-group-item d-flex align-items-center justify-content-between rounded-0 border-left-0 border-right-0 px-1">
+												<small>Anticipated Financial Aid</small>
+												<span>- $<span><span class="count total-total-aid">{{ total }}</span></span>
+											</div>
+											<small class="b-block pt-1 text-secondary"><i>Cost estimate as of {{ 'now'|date('F jS\\, Y') }} is based on 2021-22 academic year costs and is subject to change</i></small>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% else %}
+						{# Wide Card #}
+						<div class="row card-body m-0 p-0 align-items-stretch h-100 flex-row-reverse">
+							<div class="col-md-6 embed-responsive embed-responsive-4by3 border-0 bg-dark">
+								
+								<div class="embed-responsive-item slantything">
+									<div class="h-100 d-flex flex-column justify-content-center">
+										<p class="mb-0 display-3 text-danger font-weight-bold">$<span  id="total-total"><span class="count"></span></span></p>
+										<p class="px-5 pt-3 text-white">TOTAL FIRST-YEAR COST <span class="h-comp-cred">BEFORE ANTICIPATED AID</span></p>
+										<p class="px-5 pt-3 text-white"><a class="text-white font-weight-bold text-uppercase pr-3" href="#section_details">View your cost details</a> <i class="fal fa-arrow-down"></i> </p>
+									</div>
+								</div>
+							
+							</div>
+							<div class="col-md-6 bg-white p-5 text-left text-content align-content-center">
+								<h5 class="card-title text-uppercase">Total</h5>
+								<h4 class="card-title">First-year cost for <span class="selected-program"></span></h4>
+								<div class="card-text smaller">
+            			<div class="clearfix text-formatted field field--name-field-body-copy field--type-text-long field--label-hidden field__item">
+										<p>Here are the first-year academic costs of your education. <span class="h-comp-cred">This cost does not reflect any financial aid you may receive.</span></p>
+										<div class="list-group">
+											<div class="list-group-item d-flex align-items-center justify-content-between rounded-0 border-left-0 border-right-0 px-1">
+												<small>Tuition &amp; Fees</small>
+												<span>$<span class="count" id="total-tuition">0</span></span>
+											</div>
+											<div class="list-group-item d-flex align-items-center justify-content-between rounded-0 border-left-0 border-right-0 px-1">
+												<small>Books</small>
+												<span>$<span class="count" id="total-books">0</span></span>
+											</div>
+											<div class="list-group-item d-flex align-items-center justify-content-between rounded-0 border-left-0 border-right-0 px-1">
+												<small>Tools &amp; Uniforms <i class="fal fa-info-circle tools-low d-none" data-toggle="tooltip" data-placement="top" title="Additional tools may be needed in later semesters."></i><i class="fal fa-info-circle tools-high" data-toggle="tooltip" data-placement="top" title="This accounts for most of the tools you will need throughout your entire program."></i></small>
+												<span>$<span class="count" id="total-tools">0</span></span>
+											</div>
+											<div class="list-group-item d-flex align-items-center justify-content-between rounded-0 border-left-0 border-right-0 px-1">
+												<small>Housing &amp; Dining</small>
+												<span>$<span><span class="count living-total">0</span></span>
+											</div>
+											<small class="b-block pt-1 text-secondary"><i>Cost estimate as of {{ 'now'|date('F jS\\, Y') }} is based on 2021-22 academic year costs and is subject to change</i></small>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+		
+					{% endif %}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{#
+TOTALS DETAILS
+#}
+<div id="section_details" class="container-fluid mx-0 px-0 d-print-none">
+	<div class="clearfix">
+		<div class="container-fluid bg-dark text-light py-5">
+			<div class="container paragraph text-center rel paragraph--type--card-deck paragraph-where-our-ideas-take-flight">
+				<h5 class="card-title text-uppercase">Total Details</h5>
+				<h2 class="mb-3">Details</h2>
+
+				<div class="card-deck justify-content-center mt-5 row">
+					
+					{# DETAILS, BY SEMESTER #}
+					<div class="card rounded-0 border-0 bg-transparent text-left border paragraph--type--card-accordion">
+						<div class="col-12">
+							
+							<div class="card-body">
+								<!--h4 class="card-title d-flex">First Year Living Costs</h4>
+								<div class="card-text smaller">
+									<div class="clearfix text-formatted">
+										<p>Disclaimer on First Year living Costs</p>
+									</div>
+								</div-->
+							</div>
+							
+							<div class="accordion">
+								{# ACCORDION SECTION #}
+								{% set title = 'First Semester' %}
+								{% set body = '<div class="list-group rounded-0">
+									<div class="list-group-item d-flex justify-content-between align-items-center">
+										<small>
+											Tuition &amp; Fees<br>
+											$<span class="per_tuition">587</span> per credit × <span class="credit-1">0</span> credits
+										</small>									
+										<span>$<span class="count t-total-1">0</span></span>
+									</div>
+
+									<div id="first_semester_fees_list">
+										<!-- FEES GO HERE FROM cost.js -->
+									</div>
+									
+									<div class="list-group-item d-flex justify-content-between align-items-center">
+										<small>Books</small>
+										<span>$<span class="count book-total-1">0</span></span>
+									</div>
+
+									<div class="list-group-item d-flex justify-content-between align-items-center">
+										<small>Tools &amp; Uniforms <i class="fal fa-info-circle tools-low d-none" data-toggle="tooltip" data-placement="top" title="Additional tools may be needed in later semesters."></i><i class="fal fa-info-circle tools-high" data-toggle="tooltip" data-placement="top" title="This accounts for most of the tools you will need throughout your entire program."></i></small>
+										<span>$<span class="count tool-total-1">0</span></span>
+									</div>
+
+									<div id="fall_living_cost_details">
+									</div>
+
+									<div id="fall_dining_cost_details">
+									</div>
+
+									<div class="list-group-item d-flex justify-content-between align-items-center">
+										<span>Total</span>
+										<span>$<span><span class="count sem-total-1">0</span></span>
+									</div>
+								</div>' %}
+								{{ _self.accordion_section('id_2', title, body) }}
+							</div>{# /.accordion #}
+						</div>{# /.col #}
+					</div>{# /.card #}
+
+					{# DETAILS, BY SEMESTER #}
+					<div class="card rounded-0 border-0 bg-transparent text-left border paragraph--type--card-accordion">
+						<div class="col-12">
+							
+							<div class="card-body">
+								<!--h4 class="card-title d-flex">First Year Living Costs</h4>
+								<div class="card-text smaller">
+									<div class="clearfix text-formatted">
+										<p>Disclaimer on First Year living Costs</p>
+									</div>
+								</div-->
+							</div>
+							
+							<div class="accordion">
+								{# ACCORDION SECTION #}
+								{% set title = 'Second Semester' %}
+								{% set body = '<div class="list-group rounded-0">
+									<div class="list-group-item d-flex justify-content-between align-items-center">
+										<small>
+											Tuition &amp; Fees<br>
+											$<span class="per_tuition">587</span> per credit × <span class="credit-2">0</span> credits
+										</small>									
+										<span>$<span class="count t-total-2">0</span></span>
+									</div>
+
+									<div id="second_semester_fees_list">
+										<!-- FEES GO HERE FROM cost.js -->
+									</div>
+									
+									<div class="list-group-item d-flex justify-content-between align-items-center">
+										<small>Books</small>
+										<span>$<span class="count book-total-2">0</span></span>
+									</div>
+
+									<div class="list-group-item d-flex justify-content-between align-items-center">
+										<small>Tools &amp; Uniforms <i class="fal fa-info-circle tools-low d-none" data-toggle="tooltip" data-placement="top" title="Additional tools may be needed in later semesters."></i><i class="fal fa-info-circle tools-high" data-toggle="tooltip" data-placement="top" title="This accounts for most of the tools you will need throughout your entire program."></i></small>
+										<span>$<span class="count tool-total-2">0</span></span>
+									</div>
+
+									<div id="spring_living_cost_details">
+									</div>
+
+									<div id="spring_dining_cost_details">
+									</div>
+
+									<div class="list-group-item d-flex justify-content-between align-items-center">
+										<span>Total</span>
+										<span>$<span><span class="count sem-total-2">0</span></span>
+									</div>
+								</div>' %}
+								{{ _self.accordion_section('id_3', title, body) }}
+							</div>{# /.accordion #}
+						</div>{# /.col #}
+					</div>{# /.card #}
+					
+					{# DETAILS, BY SEMESTER #}
+					<div id="semester-summer" class="card rounded-0 border-0 bg-transparent text-left border paragraph--type--card-accordion">
+						<div class="col-12">
+							
+							<div class="card-body">
+								<!--h4 class="card-title d-flex">First Year Living Costs</h4>
+								<div class="card-text smaller">
+									<div class="clearfix text-formatted">
+										<p>Disclaimer on First Year living Costs</p>
+									</div>
+								</div-->
+							</div>
+							
+							<div class="accordion">
+								{# ACCORDION SECTION #}
+								{% set title = 'Summer Semester' %}
+								{% set body = '<div class="list-group rounded-0">
+									<div class="list-group-item d-flex justify-content-between align-items-center">
+										<small>
+											Tuition &amp; Fees<br>
+											$<span class="per_tuition">587</span> per credit × <span class="credit-s">0</span> credits
+										</small>
+										<span>$<span class="count t-total-s">0</span></span>
+									</div>
+
+									<div id="summer_semester_fees_list">
+										<!-- FEES GO HERE FROM cost.js -->
+									</div>
+									
+									<div class="list-group-item d-flex justify-content-between align-items-center">
+										<small>Books</small>
+										<span>$<span class="count book-total-s">0</span></span>
+									</div>
+
+									<div class="list-group-item d-flex justify-content-between align-items-center">
+										<small>Tools &amp; Uniforms <i class="fal fa-info-circle tools-low d-none" data-toggle="tooltip" data-placement="top" title="Additional tools may be needed in later semesters."></i><i class="fal fa-info-circle tools-high" data-toggle="tooltip" data-placement="top" title="This accounts for most of the tools you will need throughout your entire program."></i></small>
+										<span>$<span class="count tool-total-s">0</span></span>
+									</div>
+
+									<div id="summer_living_cost_details">
+									</div>
+
+									<div id="ssummer_dining_cost_details">
+									</div>
+
+									<div class="list-group-item d-flex justify-content-between align-items-center">
+										<span>Total</span>
+										<span>$<span><span class="count sem-total-s">0</span></span>
+									</div>
+								</div>' %}
+								{{ _self.accordion_section('id_4', title, body) }}
+							</div>{# /.accordion #}
+						</div>{# /.col #}
+					</div>{# /.card #}
+
+					<div class="w-100"></div>
+					
+					<small class="b-block pt-1 text-secondary"><i>Cost estimate as of {{ 'now'|date('F jS\\, Y') }} is based on 21-22 academic year costs and is subject to change</i></small>
+					{# Fake card to push 3rd over #}
+					{# <div class="card rounded-0 d-none d-md-block d-lg-block text-card p-3 bg-transparent border-0"></div> #}
+
+				</div>{# /.deck #}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{#
+FINANCIAL AID CONTACT AND DISCLAIMER
+TODO: Hide on comp cred
+#}
+<!--
+<div class="container-fluid mx-0 px-0 d-print-none h-comp-cred">
+	<div class="clearfix">
+		<div class="container-fluid bg-light-gray bg-halftone-bottom-right text-dark-blue py-5">
+			<div class="container">
+				<div class="row d-flex align-items-center justify-content-center">
+					
+					<div class="col-12 col-md-8 text-left">
+						<h5 class="card-title text-uppercase">Financial Aid Office</h5>
+						<h2 class="mb-3">Here to help</h2>
+						<div class="card-text">
+							<p>Nine out of ten Penn College students receive financial aid to help meet expenses. The Financial Aid Office is here to help you understand your options and maximize your resources. <a href="http://www.pct.edu/finaid" target="_blank">Learn more about external scholarships</a>, <a href="http://www.pct.edu/finaid" target="_blank">student and parent educational loans</a>, and <a href="http://www.pct.edu/finaid" target="_blank">other types of aid</a>. 
+							</p>						
+						</div>
+						<a class="btn btn-outline-corner" href="/admissions/financial-aid" target="_blank">Learn more about financial aid</a>
+					</div>{# /.col #}
+
+					<div class="col-12 col-md-4 text-left pt-5">
+						<div class="contact-area bg-transparent">
+							<div class="relevance4">
+								<div class="border rel card-body text-left pt-2 pb-3 px-4 mb-3 bg-white text-muted">
+									<h5 class="text-uppercase text-dark">Contact</h5>
+									<p class="mb-0 mt-1"><strong class="text-dark text-condensed">Financial Aid Office</strong></p>
+									<ul class="plain pl-0 smaller">
+										<li>SASC, Rm. 1013</li>
+										<li><a href="tel:5703274766" class="text-muted">570-327-4766</a></li>
+										<li><a href="tel:80036792226" class="text-muted">800-367-9222</a></li>
+										<li><a href="mailto:finaid@pct.edu" class="text-muted">finaid@pct.edu</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div> {# /.col #}
+					
+				</div>{# /.row #}
+			</div>{# /.container #}
+		</div>
+	</div>
+</div>
+
+<p class="text-muted text-center my-3" id="bill-message">
+	<i class="fal fa-calendar-check mr-3"></i>Penn College <a href="https://www.pct.edu/students/bursar/ebill-tuition-bill" target="_blank">bills one semester at a time</a>.
+	<br/>
+	<span class="smaller">* Based on latest available
+		<a href="/students/bursar/tuition-fees-and-charges" target="_blank">tuition/fees</a>,
+		<a href="/campus-life/campus-housing/on-campus-housing-costs" target="_blank">housing</a>,
+		<a href="/campus-life/dining/dining-plans" target="_blank">dining</a>, and
+		<a href="http://penncollegebooks.com/selecttermdept.aspx" target="_blank">course materials</a>
+		data,&nbsp;subject to change.</span>
+</p>
+-->
+
+{#
+THE FORM
+#}
+<div class="d-none">
+	{# This is all hidden and the HTML/JS is used to modify the form. #}
+	{{ cost_estimate_form }}
+</div>
+
+{% macro aid_card(aid) %}
+	<div class="card rounded-0 text-card text-left p-3 bg-white border-0 light-gray-background-top-border-dark-blue w-75 mx-auto" style="max-width:75% !important;">
+
+		{# SLATE AID CARD #}	
+		<div class="card-body">
+			<h4 class="card-title d-flex text-dark"><i class="fal fa-hand-holding-usd text-danger mr-3"></i> Anticipated Aid</h4>
+			<div class="card-text smaller text-secondary row">
+				<div class="w-100 clearfix text-formatted">
+					<p>We discovered aid available to you.</p>
+					<p>Aid types and amounts below are based on your current <a href="https://studentaid.gov/h/apply-for-aid/fafsa/" target="_blank">FAFSA</a> information, as well as anticipated full-time enrollment. Any changes to these details could impact your anticipated aid. Other aid opportunities may exist for you, such as external scholarships and other grants and loans. <a href="/admissions/financial-aid" target="_blank">Learn more</a>. </p>
+				</div>
+
+				<div id="aid-list-group" class="list-group rounded-0 w-100">
+					{% set total = 0 %}
+					{% for item in aid %}
+						{% if item.status == 'Active' %}
+							{% if item.fall_amount|number_format > 0 %}
+								{% set total = total + item.fall_amount %}
+								<div class="list-group-item d-flex justify-content-between align-items-center rounded-0">
+									<div>Fall {# item.category #} {{ item.description }}</div>									
+									<span>${{ item.fall_amount|number_format(0, '.', ',') }}</span></span>
+								</div>	
+							{% endif %}
+							{% if item.spring_amount|number_format > 0 %}
+								{% set total = total + item.spring_amount %}
+								<div class="list-group-item d-flex justify-content-between align-items-center rounded-0">
+									<div>Spring {# item.category #} {{ item.description }}</div>									
+									<span>${{ item.fall_amount|number_format(0, '.', ',') }}</span>
+								</div>	
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				</div>
+
+			</div>
+		</div>
+		<div class="card-footer border-0 bg-transparent d-flex align-items-center justify-content-between">
+			<span class="text-uppercase">Total</span>
+			<span class="smaller text-dark sb p-2">${{ total|number_format(0, '.', ',') }}/year</span>
+			<span id="total-aid-slate" class="d-none">{{ total }}</span>
+		</div>
+	
+	</div>
+{% endmacro %}
+
+{% macro housing_card(students, bedrooms, cost_fall, cost_summer, radio_name, img_src, body) %}
+	{% set per_room = students/bedrooms %}
+	<div class="card text-left rounded-0 border-0 bg-white light-gray-background-top-border-dark-blue mx-1">
+		
+		<div class="embed-responsive embed-responsive-4by3 border-0" style="background-position:center; background-size:cover; background-image:linear-gradient(rgba(33,74,159,.000000085),rgba(33,74,159,.000000085)),url({{ img_src }}); ">
+			<div class="embed-responsive-item d-flex align-items-center">
+				<img src="{{ img_src }}" style="opacity:0">
+			</div>
+		</div>
+		
+		<div class="card-body">
+			<h4 class="card-title d-flex text-dark">
+				{% if per_room == 1 %}
+					<i class="fal fa-user text-danger px-1"></i> 	
+				{% elseif per_room > 1 %}
+					<i class="fal fa-user-plus text-danger px-1"></i>
+				{% endif %}
+				<span class="ml-1">{{ students }} students, {{ bedrooms }} bedroom</span>
+			</h4>
+			<div class="card-text smaller text-secondary">
+				<div class="clearfix text-formatted">
+					<!--<p>${{ cost_fall|number_format(0, '.', ',') }}/semester + ${{ cost_summer|number_format(0, '.', ',') }} summer</p>-->
+				<p>{{ body }}</p>
+				</div>
+				<div class="d-flex justify-content-start">
+					<!--
+					{% for i in 1..bedrooms %}
+						<div class="border border-secondary p-2 m-1">
+							{% for i in 1..per_room %}
+								<i class="fal fa-female fa-3x"></i>
+							{% endfor %}
+						</div>
+					{% endfor %}
+					-->
+				</div>
+			</div>
+		</div>
+		<div class="card-footer border-0 bg-transparent d-flex align-items-center">
+			<a class="btn btn-outline-corner text-dark" data-form-update="radio;{{ radio_name }};{{ cost_fall }}">Choose</a>
+			<span class="smaller text-dark sb p-2">+${{ cost_fall|number_format(0, '.', ',') }}/semester<br>+${{ (cost_fall * 2)|number_format(0, '.', ',') }}/year</span>
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro meal_plan_card(meals, cost, flex, radio_name, weeks = 16) %}
+	{% set meal_icons_all = ['french-fries','popcorn','burger-soda', 'cheeseburger', 'hamburger','taco','steak','soup','sausage','sandwich','pizza-slice','meat','fish-cooked','egg-fried','croissant','cheese','cheese-swiss','bread-slice','bread-loaf','bacon','pie','hotdog','drumstick','corn','burrito','salad','turkey','shish-kebab','ice-cream','cookie','wheat','carrot','apple-alt'] %}
+	<div class="card rounded-0 text-card text-left p-3 bg-white border-0 light-gray-background-top-border-dark-blue  mx-1">
+		{% if meals == 0 %}
+			{# NO MEAL PLAN #}
+			<div class="card-body">
+				<h4 class="card-title d-flex text-dark"><i class="fal fa-hat-chef text-danger mr-3"></i> No dining Plan</h4>
+				<div class="card-text smaller text-secondary">
+					<div class="clearfix text-formatted">
+						<p>If needed, you can always add money to your Flex Spending account on an as-needed basis.</p>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer border-0 bg-transparent d-flex align-items-center">
+				<a class="btn btn-outline-corner text-dark" data-form-update="radio;{{ radio_name }};0">Choose</a>
+				<span class="smaller text-dark sb p-2">+$0/semester<br>+$0/year</span>
+			</div>
+		{% else %}
+			{# A MEAL PLAN #}	
+			<div class="card-body">
+				<h4 class="card-title d-flex text-dark"><i class="fal fa-hat-chef text-danger mr-3"></i> {{ meals }} Meal Dining Plan</h4>
+				<div class="card-text smaller text-secondary row">
+					<div class="clearfix text-formatted">
+						<p>{{ meals }} Meals per week. ${{ flex|number_format(0, '.', ',') }} Flex spending. ${{ cost|number_format(0, '.', ',') }} per semester</p>
+					</div>
+					<div class="border border-secondary p-2 my-1 d-flex flex-column align-items-center col-12">
+						<div class="d-flex justify-content-center flex-wrap">
+							{% for i in 1..meals %}
+								<i class="p-1 fal fa-{{ random(meal_icons_all) }} fa-2x my-1"></i>
+							{% endfor %}
+						</div>
+						<span class="smaller text-uppercase">{{ meals }} Meals per week</span>
+					</div>
+					<div class="border border-secondary my-1 d-flex justify-content-center col-4">
+						<div class="p-2 d-flex flex-column align-items-center justify-content-center text-center">
+							<span class="h4">{{ meals * weeks }}</span>
+							<span class="smaller text-uppercase">Meals per Semester</span>
+						</div>
+					</div>
+					<div class="border border-secondary my-1 d-flex justify-content-center col-4">
+						<div class="p-2 m-1 d-flex flex-column align-items-center justify-content-center text-center">
+							<span class="h4">${{ (cost/(meals * weeks))|number_format(2, '.', ',') }}</span>
+							<span class="smaller text-uppercase">Average Cost Per Meal</span>
+						</div>
+					</div>
+					<div class="border border-secondary my-1 d-flex justify-content-center col-4">
+						<div class="p-2 m-1 d-flex flex-column align-items-center justify-content-center text-center">
+							<span class="h4">${{ flex|number_format(0, '.', ',') }}</span>
+							<span class="smaller text-uppercase">Flex Spending</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer border-0 bg-transparent d-flex align-items-center">
+				<a class="btn btn-outline-corner text-dark" data-form-update="radio;{{ radio_name }};{{ cost }}">Choose</a>
+				<span class="smaller text-dark sb p-2">+${{ cost|number_format(0, '.', ',') }}/semester<br>+${{ (cost * 2)|number_format(0, '.', ',') }}/year</span>
+			</div>
+		{% endif %}
+	</div>
+{% endmacro %}
+
+{% macro accordion_section(id, title, body, link) %}
+	<div class="card m-0 rounded-0 border-0 bg-transparent text-left card-accordion-section" style="margin-bottom:0 !important;">
+										
+		<div class="card-header px-0" id="{{ id }}">
+			<button class="w-100 btn btn-link m-0 p-0" type="button" data-toggle="collapse" data-target=".{{ id }}" aria-expanded="true" aria-controls="{{ id }}">
+				<div class="row py-1">
+					<h6 class="col-10 mb-0 text-uppercase text-left" style="white-space:normal;">{{ title }}</h6>
+					<div class="col-2 align-self-end">
+						<svg height="16" width="16" viewBox="0 0 30 30" xmlns="http://www.w3.org/00/svg">
+							<line x1="0" y1="15" x2="30" y2="15" stroke="white" stroke-width="4"></line>
+							<line x1="15" y1="0" x2="15" y2="30" stroke="white" stroke-width="4"></line>
+						</svg>
+					</div>
+				</div>
+			</button>
+		</div>
+
+		<div class="expand {{ id }} show" aria-labelledby="{{ id }}">
+			<div class="card-body px-0">
+
+				<div class="clearfix text-formatted">
+					{{ body|raw }}
+				</div>
+
+				{% if link %}
+					<div class="card-text">
+						<div class="text-underline">
+							<a class="text-danger text-uppercase" href="{{ link }}">
+								<h6><u>Learn more</u></h6>
+							</a>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endmacro %}

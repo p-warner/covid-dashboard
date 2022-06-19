@@ -1,0 +1,10 @@
+cost_estimator.css-js:
+  version: 0.02
+  css:
+    theme:
+      css/cost_estimator.css: {}
+  js:
+    js/cost_estimator.js: {attributes: { defer: true, async: true} }
+  dependencies:
+    - core/jquery
+    - penn_college/onesixty

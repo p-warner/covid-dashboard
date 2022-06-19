@@ -1,0 +1,61 @@
+<h2>Majors</h2>
+<table>
+	{{ dd(data.majors) }}
+	<!--
+	<tr>
+	<td>cluster_name </td>
+	<td>major.pgm </td>
+	<td>major.pgmname </td>
+	<td>major.degree </td>
+	<td>major.school </td>
+	</tr>
+	{% for cluster_name, cluster in data.majors %}
+			
+		{% for major in cluster %}
+			<tr>
+			<td>{{ cluster_name }}</td>
+			<td>{{ major.pgm }}</td>
+			<td>{{ major.pgmname }}</td>
+			<td>{{ major.degree }}</td>
+			<td>{{ major.school }}</td>
+			</tr>
+		{% endfor %}
+		
+	{% endfor %}
+	-->
+</table>
+
+<h2>Credits, Lab Hours, Major Fees, Books, Tools and Uniforms</h2>
+{# dd(data.costs) #}
+<table>
+	<tr>
+		<td>n (name) </td>
+		<td>c1 (credits, fall)</td>
+		<td>c2 (credits, spring)</td>
+		<td>cs (credits, summer)</td>
+		<td>l1 (lab hours, fall)</td>
+		<td>l2 (lab hours, spring)</td>
+		<td>ls (lab hours, summer)</td>
+		<td>tu (tool and uniforms)</td>
+		<td>mf (major fee)</td>
+		<td>b1 (books, fall)</td>
+		<td>b2 (books, spring)</td>
+		<td>bs (books, summer)</td>
+	</tr>
+	{% for major in data.costs %}
+	<tr>
+		<td>{{ major.n }}</td>
+		<td>{{ major.c1 }}</td>
+		<td>{{ major.c2 }}</td>
+		<td>{{ major.cs }}</td>
+		<td>{{ major.l1 }}</td>
+		<td>{{ major.l2 }}</td>
+		<td>{{ major.ls }}</td>
+		<td>{{ major.tu }}</td>
+		<td>{{ major.mf }}</td>
+		<td>{{ major.b1 }}</td>
+		<td>{{ major.b2 }}</td>
+		<td>{{ major.bs }}</td>
+	</tr>
+	{% endfor %}
+</table>

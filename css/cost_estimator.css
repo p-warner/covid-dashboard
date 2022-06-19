@@ -1,0 +1,19 @@
+@import url('/themes/penn_college/css/slick.css');
+@import url('/themes/penn_college/css/slick-theme.css');
+@import url('/themes/penn_college/css/slick-4.css');
+
+.border-secondary{border-color:#eee!important; background:#fff;}
+.btn.active{
+	background-image:linear-gradient(135deg,transparent 3rem, var(--danger) 3rem)!important;
+	background-size:calc(100% + 3rem) 100%;
+	color:var(--white)!important;
+}
+.slick-prev{z-index:1000;}
+.slick-2{padding: 0 3rem!important;}
+
+.bg-dark .list-group-item{color:#ddd; background:transparent !important; border-color:rgba(255,255,255,0); border-radius:0; border-left:none;border-right:none;}
+.bg-dark .list-group > div:last-child{border:1px solid rgba(255,255,255,.125); background:rgba(255,255,255,.05)!important;}
+#aid-list-group .list-group-item:nth-child(even){background:var(--light-gray);}
+
+.ajax-progress.ajax-progress-fullscreen{display:none;}
+.form-select{padding:.5rem; border-color:#bbb; color:var(--gray); border-radius:0; margin-right:.5rem;}

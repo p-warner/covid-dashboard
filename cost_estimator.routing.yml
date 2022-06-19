@@ -1,0 +1,52 @@
+#cost_estimator.public-aid:
+#  path: '/cost-estimator/{slate_id}'
+#  defaults:
+#    _title: 'First-Year Cost Estimator'
+#    #_form: '\Drupal\cost\Form\CostForm'
+#    _controller: '\Drupal\cost\Controller\CostController::content'
+#  requirements:
+#    _access: 'TRUE'
+#cost_estimator.data_major:
+#  path: '/cost-estimator/data/{major_code}'
+#  defaults:
+#    _controller: '\Drupal\cost_estimator\Controller\CostEstimatorDataController::cost_list_new'
+#    _format: json
+#  requirements:
+#    _access: 'TRUE'
+#cost_estimator.data_all:
+#  path: '/cost-estimator/data-all'
+#  defaults:
+#    _controller: '\Drupal\cost\Controller\CostEstimatorDataController::cost_list_all_data'
+#    _format: json
+#  requirements:
+#    _access: 'TRUE'
+#cost.data_json:
+#  path: '/cost/data/{n}'
+#  defaults:
+#    _controller: '\Drupal\cost\Controller\CostEstimatorDataController::cost_list'
+#    _format: json
+#  requirements:
+#    _access: 'TRUE'
+#cost.data_html:
+#  path: '/cost/data/html/{n}'
+#  defaults:
+#    _controller: '\Drupal\cost\Controller\CostEstimatorDataController::content'
+#    _title: 'Penn College Cost Data'
+#  requirements:
+#    _permission: 'access content'
+#cost.data_list:
+#  path: '/cost/data/list'
+#  defaults:
+#    _controller: '\Drupal\cost\Controller\CostEstimatorDataController::select_list'
+#    _title: 'Cost data major options'
+#  requirements:
+#    _permission: 'access content'
+#USED TO OBSERVE COST DATA WITHIN THUNDERDOME DB
+cost.data_list:
+  path: '/cost-estimator/data/audit'
+  defaults:
+    _controller: '\Drupal\cost_estimator\Controller\CostEstimatorDataController::audit'
+    _title: 'Cost Estimator Audit'
+  requirements:
+    #_permission: 'access content'
+    _role: 'administrator'

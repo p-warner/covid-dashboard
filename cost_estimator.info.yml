@@ -1,0 +1,7 @@
+name: 'Cost Estimator'
+version: 1.01
+type: module
+description: 'Cost Estimator for programs.'
+core: 8.x
+core_version_requirement: ^8 || ^9 
+package: 'Penn College'

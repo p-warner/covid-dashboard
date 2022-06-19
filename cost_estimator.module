@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Contains cost_estimator.module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function cost_estimator_theme($existing, $type, $theme, $path) {
+  return [
+    'cost_estimator_audit' => [
+      'variables' => [
+        'data' => NULL,
+      ],
+    ],
+    'cost_estimator' => [
+      'variables' => [
+        'cost_estimate_form' => NULL,
+        'slate_id' => NULL,
+        'aid' => NULL,
+        'major' => NULL,
+        'state' => NULL,
+      ],
+    ],
+  ];
+}
