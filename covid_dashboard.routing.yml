@@ -1,0 +1,14 @@
+dashboard.data:
+  path: '/covid-19/dashboard/data'
+  defaults:
+    _controller: '\Drupal\covid_dashboard\Controller\DashboardDataController::renderJson'
+  requirements:
+    _permission: 'access content'
+dashboard.purge:
+  path: '/covid-19/dashboard-purge'
+  defaults:
+    #_controller: '\Drupal\covid_dashboard\Controller\DashboardDataController::purge'
+    _form: \Drupal\covid_dashboard\Form\CovidDashboardDataPointDeleteAllForm
+    _title: 'COVID-19 Dashboard Data Point Purge'
+  requirements:
+    _permission: 'administer site configuration'

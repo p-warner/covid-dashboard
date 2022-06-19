@@ -1,0 +1,32 @@
+{# 
+Required attributes are role="alert", .alert, .alert-dismissable, .d-none, a .close element, and a #uniq_id. The id used MUST be unique. If an 
+id is reused a cookie that was previously set may inadvertently trigger the dismissed behavior. Consider IDs used from 
+365 days ago.
+
+TODO: 
+break out fields- ID, Icon, Heading, Body, etc...
+hook the ID up to a RNG or hash?
+
+The block wrapper must have classes- container-fluid p-0
+The block html should look something like-
+
+<div class="alert alert-dismissible d-none bg-secondary container-fluid " id="covid_alert" role="alert" style="padding:0 1.5rem;">
+  <div class="container p-1 d-flex align-items-center text-white"><span class="d-flex align-items-center"><i aria-hidden="true" class="d-none d-md-block fas fa-virus pr-3"></i></span>
+    <h6 class="p-0 m-0 text-uppercase">COVID—19 Info
+    </h6>
+    <p class="border-white border-left ml-3 pl-3 mr-auto smaller mb-0 py-2">Status A: Indoor masking is required for all students, employees, and visitors—regardless of vaccination status.
+      <br />
+      Get the <a class="text-white text-underline" href="/covid-19">latest information</a>&nbsp;and learn about our <a class="text-white text-underline" href="/covid-19/reopening">continuity of operations plan</a>.
+    </p>
+    <button aria-label="Close" class="close position-relative" data-dismiss="alert" type="button"><span aria-hidden="true">×</span>
+    </button>
+  </div>
+</div>
+
+#}
+{#
+This style is currently required because Drupal will wrap a section.row around the block. We may be able
+to just update the region-top-header.html.twig from section to div.
+#}
+{{ html|raw }}
+<style type="text/css">header section.row{max-width:none;margin:0;padding:0;}</style>

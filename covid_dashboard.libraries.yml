@@ -1,0 +1,21 @@
+form:
+  version: 1.0.0
+  css:
+    theme:
+      css/form.css: {}
+dashboard:
+  version: 0.0.9
+  css:
+    theme:
+      css/dashboard.css: {}
+  js:
+    js/dashboard2.js: {attributes: { defer: true, async: true} }
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+    - covid_dashboard/chartjs
+chartjs:
+  version: 2.9.3
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js: { type: external, minified: true }

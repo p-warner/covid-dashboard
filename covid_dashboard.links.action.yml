@@ -1,0 +1,5 @@
+entity.covid_dashboard_data_point.add_form:
+  route_name: entity.covid_dashboard_data_point.add_form
+  title: 'Add Covid dashboard data point'
+  appears_on:
+    - entity.covid_dashboard_data_point.collection

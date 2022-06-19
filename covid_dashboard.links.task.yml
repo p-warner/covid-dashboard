@@ -1,0 +1,21 @@
+# Covid dashboard data point routing definition
+covid_dashboard_data_point.settings_tab:
+  route_name: covid_dashboard_data_point.settings
+  title: 'Settings'
+  base_route: covid_dashboard_data_point.settings
+
+entity.covid_dashboard_data_point.canonical:
+  route_name: entity.covid_dashboard_data_point.canonical
+  base_route: entity.covid_dashboard_data_point.canonical
+  title: 'View'
+
+entity.covid_dashboard_data_point.edit_form:
+  route_name: entity.covid_dashboard_data_point.edit_form
+  base_route: entity.covid_dashboard_data_point.canonical
+  title: 'Edit'
+
+entity.covid_dashboard_data_point.delete_form:
+  route_name:  entity.covid_dashboard_data_point.delete_form
+  base_route:  entity.covid_dashboard_data_point.canonical
+  title: Delete
+  weight: 10

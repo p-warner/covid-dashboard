@@ -1,0 +1,22 @@
+select.filter{
+  padding:.5rem!important;
+  -webkit-appearance: none !important;
+  -webkit-border-radius: 0px !important;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="rgb(216,59,24)" stroke="red" d="M443.5 162.6l-7.1-7.1c-4.7-4.7-12.3-4.7-17 0L224 351 28.5 155.5c-4.7-4.7-12.3-4.7-17 0l-7.1 7.1c-4.7 4.7-4.7 12.3 0 17l211 211.1c4.7 4.7 12.3 4.7 17 0l211-211.1c4.8-4.7 4.8-12.3.1-17z"></path></svg>');
+  background-repeat: no-repeat, repeat;
+  background-position: right .7em top 50%, 0 0;
+  background-size: .95em auto, 100%;
+}
+
+.block-covid-dashboard, .block-covid-dashboard-2{overflow-x:auto;}
+.numbers .border-2{border-width: 2px !important;}    
+.numbers .border-wide{border-width: 5px !important;}
+.numbers .display-1{font-size:3em!important;}
+.numbers .display-4{font-size:200%; line-height:1}
+.numbers .smaller{font-size:75%}
+.alert-danger{background:rgba(216,59,24,.35)}
+table, table.collapse.show {display: table;}
+sup { font-size: 11px; top:0}
+.smaller sup { font-size: 9px; top:5px}
+.smaller.line-height-1 sup { font-size: 11px; top:0}
+.numbersx .border-warning, .numbersx .text-warning{border-color:#bd2130 !important; color:#bd2130 !important }

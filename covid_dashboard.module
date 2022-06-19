@@ -1,0 +1,178 @@
+<?php
+
+/**
+ * @file
+ * Contains covid_dashboard.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItem;
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Implements hook_help().
+ */
+function covid_dashboard_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the covid_dashboard module.
+    case 'help.page.covid_dashboard':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Dashboard block and admin area for a COVID dashboard.') . '</p>';
+      $output .= '
+			<hr>
+			<h3>Adding field(s)</h3><p>COVID data-points are now  UI configurable!<p>
+				<ol>
+					<li>Go to the COVID Dashboard settings, <a href="/admin/structure/covid_dashboard_data_point/settings/fields">manage fields</a>, then <a href="https://dev.pct.edu/admin/structure/covid_dashboard_data_point/settings/fields/add-field">add field</a> like normal.</li>
+					<li>Open modules/custom/covid_dashboard/Plugin/Block/CovidDashboardBlock2 and do php operations/manipulations/stuff to the new field(s) in the build() function.<br>If your new field needs to be rendered (not just affecting current render items) then:
+						<ol>
+							<li>Add to the return[] of modules/custom/covid_dashboard/Plugin/Block/CovidDashboardBlock2::build()</li>
+							<li>Map to the theme(twig). Add your data to block_covid_dashboard_2[] of modules/custom/covid_dashboard/covid_dashboard.module::covid_dashboard_theme()</li>
+							<li>Render then theme(twig). Your data is now available to modules/custom/covid_dashboard/templates/block-covid-dashboard-2.html.twig using the return value specified in the previous step.</li>
+						</ol>
+					</li>
+				</ol>
+				<hr>
+				';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Used for default datetime value in Entity field
+ */
+function covid_dashboard_get_current_datetime($entity, $definition) {
+  return DrupalDateTime::createFromTimestamp(time())->format('Y-m-d');
+}
+
+/**
+ * Dashboard twig
+ */
+function covid_dashboard_theme($existing, $type, $theme, $path) {
+  return [
+    'block_covid_dashboard' => [
+      'variables' => 
+      [
+        'total_positive' => NULL,
+        'total_tested' => NULL,
+        'total_tested_3' => NULL,
+        'total_recovered' => NULL,
+        'total_deaths' => NULL,
+        'number_data_points' => NULL,
+        'all_data' => NULL,
+        'last_updated' => NULL,
+      ],
+    ],
+    'block_covid_dashboard_2' => [
+      'variables' => 
+      [
+        'total_positive' => NULL,
+        'total_tested' => NULL,
+        'total_tested_3' => NULL,
+        'total_recovered' => NULL,
+        'total_deaths' => NULL,
+        'total_active' => NULL,
+        'total_vaccinated' => NULL,
+        'number_data_points' => NULL,
+        'all_data' => NULL,
+        'last_updated' => NULL,
+      ],
+      '#attached' => [
+        'library' => [
+            'covid_dashboard/dashboard'
+        ],
+      ]
+    ],
+    'block_covid_alert_3' => [
+      'variables' => 
+      [
+        'html' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Allow access to COVID dashbard data add form to only these individuals with
+ * writer/publisher roles. Admins always have access- https://dev.pct.edu/admin/people/permissions
+ */
+function covid_dashboard_form_covid_dashboard_data_point_add_form_alter(){
+  hasAccess();
+}
+
+/**
+ * Allow access to COVID dashbard data add form to only these individuals with
+ * writer/publisher roles. Admins always have access- https://dev.pct.edu/admin/people/permissions
+ */
+function covid_dashboard_form_covid_dashboard_data_point_edit_form_alter(){
+  hasAccess();
+}
+
+/**
+ * Allow access to COVID dashbard data add form to only these individuals with
+ * writer/publisher roles. Admins always have access- https://dev.pct.edu/admin/people/permissions
+ */
+function covid_dashboard_form_covid_dashboard_data_point_delete_form_alter(){
+  hasAccess();
+}
+
+/**
+ * Helper for checking dashboard data access.
+ */
+function hasAccess(){
+  $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+  
+  $username = $account->get('name')->value;
+  $user_whitelist = ['jmclean', 'ajp25', 'jyoder', 'jkf5', 'pcw1'];
+  
+  if(!$account->hasRole('administrator')){
+    if(!in_array($username, $user_whitelist)){
+      throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
+    }
+  }
+}
+
+/**
+ * Unvarnish the /covid-19 path on new data point
+ */
+function covid_dashboard_covid_dashboard_data_point_insert(){
+  shell_exec("/home/pct/uv /covid-19");
+}
+
+/**
+ * Unvarnish the /covid-19 path on data point update
+ */
+function covid_dashboard_covid_dashboard_data_point_update(){
+  shell_exec("/home/pct/uv /covid-19");
+}
+
+/**
+ * Add Percent Vaccinated field.
+ */
+function covid_dashboard_update_8901() {
+  $field_storage_definition = BaseFieldDefinition::create('decimal')
+      ->setLabel(t('Percent Vaccinated'))
+      ->setSettings([
+        'precision' => 10,
+        'scale' => 2,
+      ])
+      ->setDefaultValue(0)
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -2,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => -2,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('percent_vaccinated', 'covid_dashboard_data_point', 'covid_dashboard_data_point', $field_storage_definition);
+}

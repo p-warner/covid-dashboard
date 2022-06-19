@@ -1,0 +1,7 @@
+name: 'COVID-19 Dashboard'
+version: 1.02
+type: module
+description: 'Dashboard block and admin area for a COVID dashboard.'
+core: 8.x
+core_version_requirement: ^8 || ^9 
+package: 'Penn College'

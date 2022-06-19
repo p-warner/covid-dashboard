@@ -1,0 +1,20 @@
+add covid dashboard data point entities:
+  title: 'Create new Covid dashboard data point entities'
+
+administer covid dashboard data point entities:
+  title: 'Administer Covid dashboard data point entities'
+  description: 'Allow to access the administration form to configure Covid dashboard data point entities.'
+  restrict access: true
+
+delete covid dashboard data point entities:
+  title: 'Delete Covid dashboard data point entities'
+
+edit covid dashboard data point entities:
+  title: 'Edit Covid dashboard data point entities'
+
+view published covid dashboard data point entities:
+  title: 'View published Covid dashboard data point entities'
+
+view unpublished covid dashboard data point entities:
+  title: 'View unpublished Covid dashboard data point entities'
+

@@ -1,0 +1,223 @@
+{{ attach_library('covid_dashboard/dashboard') }}
+<div class="row numbers">
+    {# VACCINATED #}
+    <div class="col-12 col-sm-12 col-md-4 mb-3" id="vaccinated">
+      <div class="d-flex flex-column justify-content-between border-left border-info border-wide p-2 pb-0 h-100 text-center">
+        <div class="d-flex justify-content-center">
+          <p class="line-height-1 m-0 display-1 text-info font-weight-bold">{{ total_vaccinated|number_format(0, '.', ',') }}</p>
+          <a href="#tested" class="text-info" data-toggle="tooltip" title="Percentage of campus (students &amp; employees) reporting full vaccination."><i class="fas fa-info-circle"></i></a>
+        </div>
+        <p class="line-height-1  text-uppercase smaller text-info text-condensed">Percent Vaccinated
+          <sup><a href="#definitions" class="text-secondary">1</a></sup> 
+        </p>
+      </div>
+    </div> 
+    
+
+    {# TESTED #}
+    <div class="col-12 col-sm-6 col-md-4 mb-3 " id="tested">
+      <div class="d-flex flex-column justify-content-between border-left border-secondary border-wide p-2 pb-0 h-100 text-center">
+        <div class="d-flex justify-content-center">
+          <p class="line-height-1  m-0 display-1 text-secondary font-weight-bold">{{ total_tested + total_tested_3 }}</p>
+          <a href="#tested" class="text-secondary" data-toggle="tooltip" title="Combined total of Tested at Penn College and Tested at Third-party Location."><i class="fas fa-info-circle"></i></a>
+        </div>
+        <p class="line-height-1  text-uppercase smaller text-secondary text-condensed">Total tested
+          <sup><a href="#definitions" class="text-secondary">2</a></sup> 
+        </p>
+      </div>
+    </div> 
+    
+    
+    {# TESTED DETAIL #}
+    <div class="col-12 col-sm-6 col-md-4 mb-3 text-center">
+      <div class="d-flex flex-sm-column justify-content-center p-0">
+      <div class="d-flex flex-row align-items-center p-1">
+        <p class="display-4 text-secondary text-condensed px-2 mb-0">{{ total_tested }}</p>        
+        <p class="smaller text-secondary mb-0">At Penn College
+          <sup><a href="#definitions" class="text-secondary">3</a></sup>
+        </p>
+
+      </div>  
+      <div class="d-flex flex-row  align-items-center p-1" >
+        <p class="display-4 text-secondary text-condensed px-2 mb-0">{{ total_tested_3 }}</p>  
+        <p class="smaller text-secondary mb-0">At Third-party Location
+          <sup><a href="#definitions" class="text-secondary">4</a></sup>
+        </p>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="row numbers">
+    {# POSITIVE #}
+    <div class="col mb-3 text-center" id="positive">
+      <div class="d-flex flex-column justify-content-between border-left border-danger border-wide p-2 h-100">
+        <div class="d-flex justify-content-center">
+          <p class="line-height-1  m-0 display-1 text-danger font-weight-bold">{{ total_positive }}</p>
+          <a href="#positive" class="text-secondary" data-toggle="tooltip" title="Positive cases include reports to the College from employees or students that were tested at a third-party location."><i class="fas fa-info-circle"></i></a>
+        </div>
+        <p class="line-height-1  text-uppercase smaller text-secondary text-condensed">Total Positive
+          <sup><a href="#definitions" class="text-secondary">5</a></sup> 
+          
+        </p>
+      </div>
+    </div> 
+    {# POSITIVE #} 
+    <div class="col-12 col-md-4 mb-3 text-center" id="active">
+      <div class="d-flex flex-column justify-content-between border-left border-warning border-wide p-2 h-100">
+        <div class="d-flex justify-content-center">
+          <p class="line-height-1  m-0 display-1 text-warning font-weight-bold">{{ total_active }}</p>
+          <a href="#active" class="text-secondary" data-toggle="tooltip" title="Active cases are individuals currently in isolation pending CDC-specified criteria for recovery. Any remaining cases listed in 'Total Positive' have met CDC criteria and have returned to class or work."><i class="fas fa-info-circle"></i></a>
+        </div>    
+        <p class="line-height-1  text-uppercase smaller text-secondary text-condensed">Active cases
+          <sup><a href="#definitions" class="text-secondary">6</a></sup> 
+        </p>
+      </div>
+    </div> 
+
+    {# RECOVERED #}
+    <div class="col-12 col-md-4 mb-3 text-center" id="recovered">
+      <div class="d-flex flex-column justify-content-between border-left border-success border-wide p-2 h-100">
+        <div class="d-flex justify-content-center">
+          <p class="line-height-1  m-0 display-1 text-success font-weight-bold">{{ total_recovered }}</p>
+          <a href="#recovered" class="text-secondary" data-toggle="tooltip" title="Recovery is defined as more than 30 days past the date of their first positive test."><i class="fas fa-info-circle"></i></a>
+        </div>
+        <p class="line-height-1  text-uppercase smaller text-secondary text-condensed">Total recovered
+          <sup><a href="#definitions" class="text-secondary">7</a></sup> 
+          
+        </p>
+
+      </div>
+    </div>
+
+    {# DEATHS #}
+    {% if total_deaths > 0 %} 
+    <div class="col mb-3 text-center">
+        <div class="d-flex flex-column justify-content-center border-left border-dark border-wide p-2 h-100">
+          <p class="line-height-1  m-0 display-1 text-dark font-weight-bold">{{ total_deaths }}</p>
+
+          <p class="line-height-1  text-uppercase smaller text-secondary text-condensed">Total deaths
+
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+</div>
+
+
+<div class="chart p-2 p-sm-0 my-5"></div>
+
+<div class="row">
+  <div class="col-12">
+    <h4>Daily Totals</h4>
+    <!--p class="text-secondary">Last updated {{ last_updated }} ago with {{ all_data|length }} days of data.</p-->
+  </div>
+  <div class="col-6 col-lg-3">
+    <label for="classification">Classification</label><br>
+    <select name="classification" id="classification" class="filter w-100">
+      <option value="data">All</option>
+      <option value="student">Students</option>
+      <option value="employee">Employees</option>
+    </select>
+  </div>
+  <div class="col-6 col-lg-4">
+    <label for="location">Location</label><br>
+    <select name="location" id="location" class="filter w-100">
+      <option value="data">All</option>
+      <option value="main">Main Campus/AVC/ESC</option>
+      <option value="wellsboro">Wellsboro</option>
+    </select>
+  </div>
+</div>
+
+<table class="table covid-dashboard-table text-center">
+  <thead>
+    <th>Date</th>
+    
+    <th>Tested<sup><a href="#definitions" class="text-secondary">1</a></sup></th>
+    <th>Tested at Penn College<sup><a href="#definitions" class="text-secondary">2</a></sup></th>
+    <th>Tested at Third-party Location<sup><a href="#definitions" class="text-secondary">3</a></sup></th>
+    <th>Positive<sup><a href="#definitions" class="text-secondary">4</a></sup></th>
+    <th>Recovered<sup><a href="#definitions" class="text-secondary">5</a></sup></th>
+    {% if total_deaths > 0 %}
+    <th>Deaths</th>
+    {% endif %}
+  </thead>
+  {% for data in all_data %}
+  {% if loop.index0 == 6 %}
+  </tr></table>
+  <p><a href="#more" class="smaller text-uppercase text-condensed text-danger" data-toggle="collapse">More dates</a></p>
+  <table id="more" class="collapse table covid-dashboard-table text-center w-100">
+  <thead class="w-100">
+    <th>Date</th>
+    
+    <th>Tested<sup><a href="#definitions" class="text-secondary">1</a></sup></th>
+    <th>Tested at Penn College<sup><a href="#definitions" class="text-secondary">2</a></sup></th>
+    <th>Tested at Third-party Location<sup><a href="#definitions" class="text-secondary">3</a></sup></th>
+    <th>Positive<sup><a href="#definitions" class="text-secondary">4</a></sup></th>
+    <th>Recovered<sup><a href="#definitions" class="text-secondary">5</a></sup></th>
+    {% if total_deaths > 0 %}
+    <th>Deaths</th>
+    {% endif %}
+    </thead>
+    <tr>
+  {% else %}
+    <tr>
+  {% endif %}
+    <td 
+      data-date="{{ data.date.value|date('Y-m-d') }}">{{ data.date.value|date('Y-m-d') }}</td>
+
+    <td
+      class="tested"
+      data-main-student-tested="{{ data.main_student_tested.value + data.main_student_tested_3.value }}"
+      data-main-employee-tested="{{ data.main_employee_tested.value + data.main_employee_tested_3.value }}"
+      data-wellsboro-student-tested="{{ data.wellsboro_student_tested.value + data.wellsboro_student_tested_3.value }}"
+      data-wellsboro-employee-tested="{{ data.wellsboro_employee_tested.value + data.wellsboro_employee_tested_3.value }}">
+      <noscript>{{ data.main_student_tested.value + data.main_employee_tested.value + data.wellsboro_student_tested.value + data.wellsboro_employee_tested.value + data.main_student_tested_3.value + data.main_employee_tested_3.value + data.wellsboro_student_tested_3.value + data.wellsboro_employee_tested_3.value }}</noscript>
+    </td>
+    <td
+      class="tested_pct"
+      data-main-student-tested="{{ data.main_student_tested.value }}"
+      data-main-employee-tested="{{ data.main_employee_tested.value }}"
+      data-wellsboro-student-tested="{{ data.wellsboro_student_tested.value }}"
+      data-wellsboro-employee-tested="{{ data.wellsboro_employee_tested.value }}">
+      <noscript>{{ data.main_student_tested.value + data.main_employee_tested.value + data.wellsboro_student_tested.value + data.wellsboro_employee_tested.value }}</noscript>
+    </td>
+    <td
+      class="tested_3"
+      data-main-student-tested="{{ data.main_student_tested_3.value }}"
+      data-main-employee-tested="{{ data.main_employee_tested_3.value }}"
+      data-wellsboro-student-tested="{{ data.wellsboro_student_tested_3.value }}"
+      data-wellsboro-employee-tested="{{ data.wellsboro_employee_tested_3.value }}">
+      <noscript>{{ data.main_student_tested_3.value + data.main_employee_tested_3.value + data.wellsboro_student_tested_3.value + data.wellsboro_employee_tested_3.value }}</noscript>
+    </td>    
+    <td 
+      class="positive"
+      data-main-student-positive="{{ data.main_student_positive.value }}"
+      data-main-employee-positive="{{ data.main_employee_positive.value }}"
+      data-wellsboro-student-positive="{{ data.wellsboro_student_positive.value }}"
+      data-wellsboro-employee-positive="{{ data.wellsboro_employee_positive.value }}">
+      <noscript>{{ data.main_student_positive.value + data.main_employee_positive.value + data.wellsboro_student_positive.value + data.wellsboro_employee_positive.value }}</noscript>
+    </td>
+    <td
+      class="recovered"
+      data-main-student-recovered="{{ data.main_student_recovered.value }}"
+      data-main-employee-recovered="{{ data.main_employee_recovered.value }}"
+      data-wellsboro-student-recovered="{{ data.wellsboro_student_recovered.value }}"
+      data-wellsboro-employee-recovered="{{ data.wellsboro_employee_recovered.value }}">
+      <noscript>{{ data.main_student_recovered.value + data.main_employee_recovered.value + data.wellsboro_student_recovered.value + data.wellsboro_employee_recovered.value }}</noscript>
+    </td>
+    {% if total_deaths > 0 %}
+    <td
+      class="deaths"
+      data-main-student-deaths="{{ data.main_student_deaths.value }}"
+      data-main-employee-deaths="{{ data.main_employee_deaths.value }}"
+      data-wellsboro-student-deaths="{{ data.wellsboro_student_deaths.value }}"
+      data-wellsboro-employee-deaths="{{ data.wellsboro_employee_deaths.value }}">
+      <noscript>{{ data.main_student_deaths.value + data.main_employee_deaths.value + data.wellsboro_student_deaths.value + data.wellsboro_employee_deaths.value }}</noscript>
+    </td>
+    {% endif  %}
+  </tr>
+  {% endfor %}
+</table>
+

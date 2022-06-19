@@ -1,0 +1,132 @@
+
+
+<div class="card-deck justify-content-center my-1">
+  <div class="card rounded-0 border-0 bg-transparent text-left">
+    <div class="card-body px-0">
+      <div class="d-flex justify-content-left align-items-center">
+        <div class="mx-2 pl-4 pr-0 border-left border-danger" style="border-width:5px !important;">
+          <p style="line-height:1em;" class="text-uppercase p-0 m-0">Total Positive<sup><a href="#definitions" class="text-secondary">1</a></sup> <a href="#definitions" class="text-secondary" data-toggle="tooltip" title="Positive cases include reports to the College from employees or students that were tested at a 3rd party location."><i class="fas fa-info-circle"></i></a>
+          </p>
+          <p style="line-height:1em;" class="p-0 m-0 display-1 text-danger font-weight-bold">{{ total_positive }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card rounded-0 border-0 bg-transparent text-left">
+    <div class="card-body px-0">
+      <div class="d-flex justify-content-left align-items-center">
+        <div class="mx-2 pl-4 pr-0 border-left border-secondary" style="border-width:5px !important;">
+          <p style="line-height:1em;" class="text-uppercase p-0 m-0">Tested at Penn College <sup><a href="#definitions" class="text-secondary">2</a></sup> <a href="#definitions" class="text-secondary" data-toggle="tooltip" title="Results of tests conducted by Penn College are typically available in 24-48 hours."><i class="fas fa-info-circle"></i></a></p>
+          <p style="line-height:1em;" class="p-0 m-0 display-1 text-secondary font-weight-bold">{{ total_tested }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card rounded-0 border-0 bg-transparent text-left">
+    <div class="card-body px-0">
+      <div class="d-flex justify-content-left align-items-center">
+        <div class="mx-2 pl-4 pr-0 border-left border-success" style="border-width:5px !important;">
+          <p style="line-height:1em;" class="text-uppercase p-0 m-0">Total Recovered<sup><a href="#definitions" class="text-secondary">3</a></sup> <a href="#definitions" class="text-secondary" data-toggle="tooltip" title="More than 30 days past the date of their first positive test"><i class="fas fa-question-circle"></i></a></p>
+          <p style="line-height:1em;" class="p-0 m-0 display-1 text-success font-weight-bold">{{ total_recovered }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if total_deaths > 0 %}
+    <div class="card rounded-0 border-0 bg-transparent text-left">
+      <div class="card-body px-0">
+        <div class="d-flex justify-content-left align-items-center">
+          <div class="mx-2 pl-4 pr-0 border-left border-dark" style="border-width:5px !important;">
+            <p style="line-height:1em;" class="text-uppercase p-0 m-0">Total Deaths</p>
+            <p style="line-height:1em;" class="p-0 m-0 display-1 text-dark font-weight-bold">{{ total_deaths }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<div class="chart p-2 p-sm-0 my-5"></div>
+
+<div class="row">
+  <div class="col-12">
+    <h4>7-day Totals</h4>
+    <!--p class="text-secondary">Last updated {{ last_updated }} ago with {{ all_data|length }} days of data.</p-->
+  </div>
+  <div class="col-6 col-lg-3">
+    <label for="classification">Classification</label><br>
+    <select name="classification" id="classification" class="filter w-100">
+      <option value="data">All</option>
+      <option value="student">Students</option>
+      <option value="employee">Employees</option>
+    </select>
+  </div>
+  <div class="col-6 col-lg-4">
+    <label for="location">Location</label><br>
+    <select name="location" id="location" class="filter w-100">
+      <option value="data">All</option>
+      <option value="main">Main Campus/AVC/ESC</option>
+      <option value="wellsboro">Wellsboro</option>
+    </select>
+  </div>
+</div>
+
+<table class="table covid-dashboard-table">
+  <thead>
+    <th>Date</th>
+    <th>Positive<sup><a href="#definitions" class="text-secondary">1</a></sup></th>
+    <th>Tested<a href="#definitions" class="text-secondary">2</a></sup></th>
+    <th>Recovered<sup><a href="#definitions" class="text-secondary">3</a></sup></th>
+    {% if total_deaths > 0 %}
+    <th>Deaths</th>
+    {% endif %}
+  </thead>
+  {% for data in all_data %}
+  <tr{% if loop.index0 > 6 %} class="d-none"{% endif %}>
+    <td 
+      data-date="{{ data.date.value|date('Y-m-d') }}">{{ data.date.value|date('Y-m-d') }}</td>
+    <td 
+      class="positive"
+      data-main-student-positive="{{ data.main_student_positive.value }}"
+      data-main-employee-positive="{{ data.main_employee_positive.value }}"
+      data-wellsboro-student-positive="{{ data.wellsboro_student_positive.value }}"
+      data-wellsboro-employee-positive="{{ data.wellsboro_employee_positive.value }}">
+      <noscript>{{ data.main_student_positive.value + data.main_employee_positive.value + data.wellsboro_student_positive.value + data.wellsboro_employee_positive.value }}</noscript>
+    </td>
+    <td
+      class="tested"
+      data-main-student-tested="{{ data.main_student_tested.value }}"
+      data-main-employee-tested="{{ data.main_employee_tested.value }}"
+      data-wellsboro-student-tested="{{ data.wellsboro_student_tested.value }}"
+      data-wellsboro-employee-tested="{{ data.wellsboro_employee_tested.value }}">
+      <noscript>{{ data.main_student_tested.value + data.main_employee_tested.value + data.wellsboro_student_tested.value + data.wellsboro_employee_tested.value }}</noscript>
+    </td>
+    <td
+      class="recovered"
+      data-main-student-recovered="{{ data.main_student_recovered.value }}"
+      data-main-employee-recovered="{{ data.main_employee_recovered.value }}"
+      data-wellsboro-student-recovered="{{ data.wellsboro_student_recovered.value }}"
+      data-wellsboro-employee-recovered="{{ data.wellsboro_employee_recovered.value }}">
+      <noscript>{{ data.main_student_recovered.value + data.main_employee_recovered.value + data.wellsboro_student_recovered.value + data.wellsboro_employee_recovered.value }}</noscript>
+    </td>
+    {% if total_deaths > 0 %}
+    <td
+      class="deaths"
+      data-main-student-deaths="{{ data.main_student_deaths.value }}"
+      data-main-employee-deaths="{{ data.main_employee_deaths.value }}"
+      data-wellsboro-student-deaths="{{ data.wellsboro_student_deaths.value }}"
+      data-wellsboro-employee-deaths="{{ data.wellsboro_employee_deaths.value }}">
+      <noscript>{{ data.main_student_deaths.value + data.main_employee_deaths.value + data.wellsboro_student_deaths.value + data.wellsboro_employee_deaths.value }}</noscript>
+    </td>
+    {% endif  %}
+  </tr>
+  {% endfor %}
+</table>
+
+<div id="definitions">
+  <small class="text-secondary d-block mb-2">1 &ndash; Positive cases include reports to the College from employees or students that were tested at a 3rd party location.</small>
+  <small class="text-secondary d-block mb-2">2 &ndash; Results of tests conducted by Penn College are typically available in 24-48 hours.</small>
+  <small class="text-secondary d-block mb-4">3 &ndash; Recovery is defined as more than 30 days past the date of their first positive test</small>
+  <small class="text-secondary d-block mb-2">Data is current as of 9 a.m. on the day it is reported.</small>
+  <small class="text-secondary d-block mb-2">Following the first positive case, the campus community will be notified of any subsequent cases through a daily notification (Monday-Friday). Any results received over a weekend will be reported in Monday's data.</small>
+</div>

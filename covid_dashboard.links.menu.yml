@@ -1,0 +1,14 @@
+
+# Covid dashboard data point menu items definition
+entity.covid_dashboard_data_point.collection:
+  title: 'Covid dashboard data point list'
+  route_name: entity.covid_dashboard_data_point.collection
+  description: 'List Covid dashboard data point entities'
+  parent: system.admin_structure
+  weight: 100
+
+covid_dashboard_data_point.admin.structure.settings:
+  title: 'Covid dashboard data point settings'
+  description: 'Configure Covid dashboard data point entities'
+  route_name: covid_dashboard_data_point.settings
+  parent: system.admin_structure
